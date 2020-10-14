@@ -1,35 +1,50 @@
 <template>
-  <div class="container">
-    <!-- <div class="user-profile">
-      <div class="user-profile__user-panel">
-        <h1 class="user-profile__username">@{{ user.username }}</h1>
-        <div class="user-profile__follower-count">
-          <strong>Followers:</strong> {{ followers }}
-        </div>
-      </div>
-    </div> -->
+  <b-container>
 
-    <h1>Profile</h1>
-    <b-card
-      :title="'@' + user.username"
-      tag="article"
-      class="mb-2"
-    >
-      <b-card-text>
-        {{ user.email }} <br>
-        <strong>Followers: </strong> {{ followers}}
-      </b-card-text>
+    <b-row>
+      <b-col cols="4">
+        <b-card
+          :title="'@' + user.username"
+          tag="article"
+          class="mb-2"
+        >
+          <b-card-text>
+            {{ user.email }} <br>
+            <b-badge variant="info" v-if="user.isAdmin">Admin</b-badge> <br>
+            <strong>Followers: </strong> {{ followers }}
+          </b-card-text>
 
-      <b-button href="#" variant="primary" @click="followUser" >Follow</b-button>
-    </b-card>
-  </div>
+          <!-- <b-button href="#" variant="primary" @click="followUser" >Follow</b-button> -->
+        </b-card>
+      </b-col>
+      <b-col>
+        <h3>Tweets</h3>
+        <TweetItem 
+          v-for="tweet in user.tweets" 
+          :key="tweet.id" 
+          :username="user.username" 
+          :tweet="tweet"
+          class="mb-2"
+          @favorite="toggleFavorite"
+        >
+        </TweetItem>
+      </b-col>
+    </b-row>
+    
+
+    
+
+  </b-container>
   
   
 </template>
 
 <script>
+import TweetItem from './TweetItem'
+
 export default {
   name: 'UserProfile',
+  components: { TweetItem },
   data() {
     return {
       followers: 0,
@@ -39,7 +54,11 @@ export default {
         firstName: 'Jesus',
         lastName: 'Alvarez',
         email: 'alv.mtz94@gmail.com',
-        isAdmin: true
+        isAdmin: true,
+        tweets: [
+          { id: 1, content: 'Twitter is amazing!'},
+          { id: 2, content: 'I feel very positive about Vue.js! '}
+        ]
       }
     }
   },
@@ -51,6 +70,9 @@ export default {
   methods: {
     followUser() {
       this.followers++;
+    },
+    toggleFavorite(id) {
+      alert(`Favorite id #${id}`);
     }
   },
   mounted() {
