@@ -1,10 +1,12 @@
 <template>
-  <b-card class="tweet-item" @click="favoriteTweet(tweet.id)">
-    <b-card-text>
-      <p>{{ tweet.content }}</p>
-      - <strong>{{ username }}</strong>
-    </b-card-text>
-  </b-card>
+  <transition name="fade">
+    <b-card class="tweet-item" @click="favoriteTweet(tweet.id)">
+      <b-card-text>
+        <p>{{ tweet.content }}</p>
+        - <strong>{{ username }}</strong>
+      </b-card-text>
+    </b-card>
+  </transition>
 </template>
 
 <script>

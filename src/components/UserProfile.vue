@@ -14,7 +14,7 @@
             <strong>Followers: </strong> {{ followers }}
           </b-card-text>
 
-          <!-- <b-button href="#" variant="primary" @click="followUser" >Follow</b-button> -->
+          <NewTweet @new-tweet="createNewTweet"/>
         </b-card>
       </b-col>
       <b-col>
@@ -41,10 +41,11 @@
 
 <script>
 import TweetItem from './TweetItem'
+import NewTweet from './NewTweet'
 
 export default {
   name: 'UserProfile',
-  components: { TweetItem },
+  components: { TweetItem, NewTweet },
   data() {
     return {
       followers: 0,
@@ -73,6 +74,12 @@ export default {
     },
     toggleFavorite(id) {
       alert(`Favorite id #${id}`);
+    },
+    createNewTweet(form) {
+      console.log(form);
+      this.user.tweets.unshift(
+        { id: this.user.tweets.length + 1, content: form.tweet}
+      )
     }
   },
   mounted() {
