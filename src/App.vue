@@ -21,7 +21,9 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  min-height: 100vh;
+  background-color: #f1f1f1;
 }
 </style>

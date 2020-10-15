@@ -4,6 +4,7 @@
     id="input-group-1"
     label="Tweet"
     label-for="input-1"
+    :description="`Total characters: ${newTweetCharacterCount}/180`"
   >
     <b-form-textarea
       v-model="form.tweet"
@@ -13,6 +14,7 @@
       placeholder="Write something..."
       rows="3"
       max-rows="6"
+      :class="{'input-failure': newTweetCharacterCount > 180 }"
     >
     </b-form-textarea>
   </b-form-group>
@@ -34,13 +36,22 @@ export default {
         {value: null, text: 'Please select an option'},
         {value: 'draft', text: 'Draft'},
         {value: 'instant', text: 'Instant Tweet'}
-      ]
+      ],
+      characterCount: 0
+    }
+  },
+  computed: {
+    newTweetCharacterCount() {
+      return this.form.tweet.length
     }
   },
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      console.log(JSON.stringify(this.form));
+      if (this.newTweetCharacterCount > 180) {
+        alert('Tweet character amount exceeded!');
+        throw "Tweet character amount exceeded";
+      }
       this.$emit('new-tweet', this.form);
       this.reset();
     },
@@ -53,5 +64,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.input-failure {
+  border: 3px solid rgb(226, 77, 77);
+  color: red;
+  background-color: rgba(240, 83, 83, 0.185);
+}
 </style>

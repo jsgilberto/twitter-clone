@@ -30,13 +30,7 @@
         </TweetItem>
       </b-col>
     </b-row>
-    
-
-    
-
   </b-container>
-  
-  
 </template>
 
 <script>
@@ -94,7 +88,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .user-profile {
   display: flex;
   flex-direction: column;
